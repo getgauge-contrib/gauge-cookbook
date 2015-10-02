@@ -61,6 +61,7 @@ Remove the gauge `html-report` plugin
 
 ```ruby
 gauge_plugin 'html-report' do
+  action :remove
   user  'alice'
   group 'alice'
 end
