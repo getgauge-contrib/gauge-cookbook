@@ -3,7 +3,7 @@ zipfile = ::File.join(Chef::Config[:file_cache_path], ::File.basename(node['gaug
 remote_file zipfile do
   source node['gauge']['url']
   checksum node['gauge']['checksum']
-  not_if {::File.exist?("/opt/local/gauge/bin/gauge") }
+  not_if { ::File.exist?("/opt/local/gauge/.version-#{node['gauge']['version']}") }
 end
 
 directory "/opt/local/gauge" do
@@ -14,8 +14,15 @@ directory "/opt/local/gauge" do
 end
 
 execute "install gauge v#{node['gauge']['version']}" do
-  creates "/opt/local/gauge/bin/gauge"
-  command "unzip #{zipfile} -d /opt/local/gauge"
+  command "rm -rf /opt/local/gauge && mkdir -p /opt/local/gauge && unzip #{zipfile} -d /opt/local/gauge && touch /opt/local/gauge/.version-#{node['gauge']['version']}"
+  creates "/opt/local/gauge/.version-#{node['gauge']['version']}"
+end
+
+directory "/opt/local/gauge" do
+  owner 'root'
+  group 'root'
+  mode  '0755'
+  recursive true
 end
 
 file "/usr/local/bin/gauge" do

@@ -40,8 +40,10 @@ This LWRP provides an easy way to manage additional gauge plugins.
 #### Attribute Parameters
 
 - `name` - the name of the plugin
+- `version` - the version of the plugin
 - `user` - the user under which the plugin should be installed
 - `group` - the group under which the plugin should be installed
+- `password` - needed only for windows, the windows account password for `user`
 
 #### Examples
 
@@ -53,9 +55,10 @@ include_recipe 'gauge'
 gauge_plugin 'java' do
   user  'alice'
   group 'alice'
+  password 'p@ssw0rd' # only on windows
+  version '0.3.1'
 end
 ```
-
 
 Remove the gauge `html-report` plugin
 

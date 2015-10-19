@@ -3,6 +3,12 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v0.5.0 (2015-10-19)
+-------------------
+* [linux] Add some version information to the installation to be able to upgrade/downgrade gauge as needed
+* [windows] improve plugin installation
+* add support for installing specific plugin versions
+
 v0.4.0 (2015-10-09)
 -------------------
 * fix windows installation
