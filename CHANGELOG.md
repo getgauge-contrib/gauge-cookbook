@@ -3,6 +3,10 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v0.6.0 (2015-11-02)
+-------------------
+* [windows] do not depend on chocolatey to install gauge because chocolatey takes forever to review new packages
+
 v0.5.0 (2015-10-19)
 -------------------
 * [linux] Add some version information to the installation to be able to upgrade/downgrade gauge as needed
