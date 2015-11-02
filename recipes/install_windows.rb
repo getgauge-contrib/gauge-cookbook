@@ -1,4 +1,4 @@
-windows_package 'gauge' do
+windows_package "Gauge #{node['gauge']['version']}" do
   version   node['gauge']['version']
   source    node['gauge']['url']
   checksum  node['gauge']['checksum']

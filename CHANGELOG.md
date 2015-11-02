@@ -3,6 +3,10 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v0.8.0 (2015-11-02)
+-------------------
+* [windows] fix windows package name
+
 v0.7.0 (2015-11-02)
 -------------------
 * [windows] fix incorrect usage of lwrp
