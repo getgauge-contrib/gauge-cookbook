@@ -1,14 +1,10 @@
 include Chef::Mixin::ShellOut
 
 action :install do
-  existing_version = nil
+  existing_version = existing_plugin_version(new_resource)
   resource_name = "install gauge plugin #{new_resource.name}#{(" v" << new_resource.version) if new_resource.version}"
 
   install_command = "gauge --install #{new_resource.name}"
-
-  if shell_out!('gauge --version', shellout_options(new_resource)).stdout =~ (/^#{new_resource.name} \((.*)\)/)
-    existing_version = $1
-  end
 
   if new_resource.version
     install_command << " --plugin-version #{new_resource.version}"
@@ -85,7 +81,8 @@ def shellout_options(new_resource)
 end
 
 def existing_plugin_version(new_resource)
-  if shell_out!('gauge --version', shellout_options(new_resource)).stdout =~ (/^#{new_resource.name} \((.*)\)/)
+  version_stdout = shell_out!('gauge --version', shellout_options(new_resource)).stdout
+  if version_stdout =~ (/^#{new_resource.name} \((.*)\)/)
     $1
   else
     nil

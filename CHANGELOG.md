@@ -3,6 +3,10 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v0.7.0 (2015-11-02)
+-------------------
+* [windows] fix incorrect usage of lwrp
+
 v0.6.0 (2015-11-02)
 -------------------
 * [windows] do not depend on chocolatey to install gauge because chocolatey takes forever to review new packages
