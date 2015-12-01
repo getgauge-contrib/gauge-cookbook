@@ -3,6 +3,11 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v0.9.0 (2015-11-02)
+-------------------
+* [windows] improve windows program execution
+* add support for updating `gauge.properties`
+
 v0.8.0 (2015-11-02)
 -------------------
 * [windows] fix windows package name
@@ -36,4 +41,3 @@ v0.2.0 (2015-10-02)
 v0.1.0 (2015-10-02)
 -------------------
 * Initial commit
-
