@@ -8,60 +8,64 @@ action :install do
 
   if new_resource.version
     install_command << " --plugin-version #{new_resource.version}"
-
-    if existing_version && existing_version != new_resource.version
-      remove_plugin(new_resource)
-    end
   end
 
-  if platform_family?('windows')
-    chocolatey 'wget'
-    ruby_block resource_name do
-      block do
-        shell_out!(install_command, shellout_options(new_resource))
-        new_resource.updated_by_last_action(true)
+  if existing_version && new_resource.version && existing_version != new_resource.version
+    remove_plugin(new_resource.user, new_resource.name)
+  end
+
+  if !existing_version || (existing_version && new_resource.version && existing_version != new_resource.version)
+    if platform_family?('windows')
+      chocolatey 'wget'
+      ruby_block install_command do
+        block do
+          shell_out!(install_command, shellout_options(new_resource))
+          new_resource.updated_by_last_action(true)
+        end
       end
-
-      not_if { ::File.exist?(plugin_dir(new_resource)) }
-    end
-  else
-    execute_resource = execute resource_name do
-      command install_command
-      user  new_resource.user
-      group new_resource.group
-      environment ({
-                     'HOME' => node['etc']['passwd'][new_resource.user]['dir'],
-                     'USER' => new_resource.user
-      })
-      creates plugin_dir(new_resource)
+    else
+      execute install_command do
+        user  new_resource.user
+        group new_resource.group
+        environment ({
+                       'HOME' => node['etc']['passwd'][new_resource.user]['dir'],
+                       'USER' => new_resource.user
+        })
+      end
     end
 
-    new_resource.updated_by_last_action(execute_resource.updated_by_last_action?)
+    new_resource.updated_by_last_action(true)
   end
 end
 
 action :remove do
-  remove_plugin(new_resource)
+  removed = remove_plugin(new_resource.user, new_resource.name, new_resource.version)
+  new_resource.updated_by_last_action(removed)
 end
 
-
-def plugin_dir(new_resource)
-  if platform_family?('windows')
-    "C:\\Users\\#{new_resource.user}\\AppData\\Roaming\\gauge\\plugins\\#{new_resource.name}"
+def plugin_dir(user, plugin_name, version=nil)
+  plugin_dir = if platform_family?('windows')
+    "C:/Users/#{user}/AppData/Roaming/gauge/plugins/#{plugin_name}"
   else
-    ::File.join(node['etc']['passwd'][new_resource.user]['dir'], '.gauge', 'plugins', new_resource.name)
+    ::File.join(node['etc']['passwd'][user]['dir'], '.gauge', 'plugins', plugin_name)
   end
+
+  if version
+    plugin_dir = ::File.join(plugin_dir, version)
+  end
+
+  plugin_dir
 end
 
-def remove_plugin(new_resource)
-  to_remove = plugin_dir(new_resource)
+def remove_plugin(user, plugin_name, version=nil)
+  to_remove = plugin_dir(user, plugin_name)
 
   directory_resource = directory to_remove do
     action    :delete
     recursive true
   end
 
-  new_resource.updated_by_last_action(directory_resource.updated_by_last_action?)
+  directory_resource.updated_by_last_action?
 end
 
 def shellout_options(new_resource)
@@ -69,7 +73,16 @@ def shellout_options(new_resource)
 
   # windows needs a password, linux needs HOME and USER to be forced
   if platform_family?('windows')
-    opts.merge!(password:  new_resource.password)
+    opts.merge!({
+                  password:  new_resource.password,
+                  domain: new_resource.domain,
+                  env: {
+                    'APPDATA'     => "#{ENV['HOMEDRIVE']}\\Users\\#{new_resource.user}\\AppData\\Roaming",
+                    'USERPROFILE' => "#{ENV['HOMEDRIVE']}\\Users\\#{new_resource.user}",
+                    'HOMEDRIVE'   => ENV['HOMEDRIVE'],
+                    'HOMEPATH'    => "\\Users\\#{new_resource.user}"
+                  }
+    })
   else
     opts.merge!(env: {
                   'HOME' => node['etc']['passwd'][new_resource.user]['dir'],
