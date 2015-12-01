@@ -18,13 +18,6 @@ execute "install gauge v#{node['gauge']['version']}" do
   creates "/opt/local/gauge/.version-#{node['gauge']['version']}"
 end
 
-directory "/opt/local/gauge" do
-  owner 'root'
-  group 'root'
-  mode  '0755'
-  recursive true
-end
-
 file "/usr/local/bin/gauge" do
   mode  '0755'
   owner 'root'
@@ -37,6 +30,12 @@ file "/usr/local/bin/gauge" do
 export GAUGE_ROOT=/opt/local/gauge
 exec $GAUGE_ROOT/bin/gauge "$@"
 EOF
+end
+
+template '/opt/local/gauge/share/gauge/gauge.properties' do
+  owner 'root'
+  group 'root'
+  mode  '0644'
 end
 
 file zipfile do

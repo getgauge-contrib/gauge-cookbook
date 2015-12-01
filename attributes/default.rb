@@ -17,3 +17,8 @@ else
     default['gauge']['checksum'] = 'a44fb67a96f5d26809b1261c66a69237e4491660a88ee8a3d49f033ae9a03928'
   end
 end
+
+default['gauge']['properties']['runner_connection_timeout'] = 60000
+default['gauge']['properties']['plugin_connection_timeout'] = 10000
+default['gauge']['properties']['plugin_kill_timeout']       = 4000
+default['gauge']['properties']['runner_request_timeout']    = 60000
