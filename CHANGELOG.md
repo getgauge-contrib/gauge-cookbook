@@ -3,6 +3,10 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v1.0.1(2016-27-01)
+-------------------
+*Updated version of Gauge to 0.3.1
+
 v0.9.0 (2015-11-02)
 -------------------
 * [windows] improve windows program execution
