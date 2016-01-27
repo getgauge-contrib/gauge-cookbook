@@ -3,7 +3,7 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
-v1.0.1(2016-27-01)
+v1.0.0(2016-27-01)
 -------------------
 *Updated version of Gauge to 0.3.1
 
