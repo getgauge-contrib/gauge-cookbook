@@ -3,15 +3,20 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
-v1.2.0(2016-07-02)
+v1.3.0 (2016-07-02)
+-------------------
+* Minor windows fixups
+* Update the gauge.properties to work with gauge 0.4.0
+
+v1.2.0 (2016-07-02)
 -------------------
 * Remove dependency on wget
 
-v1.1.0(2016-07-02)
+v1.1.0 (2016-07-02)
 -------------------
 * Updated version of Gauge to 0.4.0
 
-v1.0.0(2016-27-01)
+v1.0.0 (2016-27-01)
 -------------------
 * Updated version of Gauge to 0.3.1
 

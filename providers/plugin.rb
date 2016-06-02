@@ -4,7 +4,7 @@ action :install do
   existing_version = existing_plugin_version(new_resource)
   resource_name = "install gauge plugin #{new_resource.name}#{(" v" << new_resource.version) if new_resource.version}"
 
-  install_command = "gauge --install #{new_resource.name}"
+  install_command = "#{gauge_executable} --install #{new_resource.name}"
 
   if new_resource.version
     install_command << " --plugin-version #{new_resource.version}"
@@ -67,6 +67,10 @@ def remove_plugin(user, plugin_name, version=nil)
   directory_resource.updated_by_last_action?
 end
 
+def gauge_executable
+  platform_family?('windows') ? '"C:\Program Files\Gauge\bin\gauge.exe"' : 'gauge'
+end
+
 def shellout_options(new_resource)
   opts = {user: new_resource.user, group: new_resource.group}
 
@@ -93,7 +97,7 @@ def shellout_options(new_resource)
 end
 
 def existing_plugin_version(new_resource)
-  version_stdout = shell_out!('gauge --version', shellout_options(new_resource)).stdout
+  version_stdout = shell_out!("#{gauge_executable} --version", shellout_options(new_resource)).stdout
   if version_stdout =~ (/^#{new_resource.name} \((.*)\)/)
     $1
   else
