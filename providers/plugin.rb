@@ -16,7 +16,6 @@ action :install do
 
   if !existing_version || (existing_version && new_resource.version && existing_version != new_resource.version)
     if platform_family?('windows')
-      chocolatey 'wget'
       ruby_block install_command do
         block do
           shell_out!(install_command, shellout_options(new_resource))
