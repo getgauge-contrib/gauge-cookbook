@@ -1,4 +1,4 @@
-default['gauge']['version']  = "0.6.2"
+default['gauge']['version'] = '0.6.2'
 
 if platform_family?('windows')
   if node['kernel']['machine'] =~ /x86_64/
