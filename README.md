@@ -38,6 +38,7 @@ Setting up Gauge properties http://getgauge.io/documentation/user/current/advanc
 `node['gauge']['properties']['plugin_connection_timeout']`
 `node['gauge']['properties']['plugin_kill_timeout']`
 `node['gauge']['properties']['runner_request_timeout']`
+`node['gauge']['properties']['check_updates']`
 
 Resources/Providers
 -------------------
