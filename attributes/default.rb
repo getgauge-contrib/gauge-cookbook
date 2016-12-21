@@ -22,3 +22,4 @@ default['gauge']['properties']['runner_connection_timeout'] = 60000
 default['gauge']['properties']['plugin_connection_timeout'] = 10000
 default['gauge']['properties']['plugin_kill_timeout']       = 4000
 default['gauge']['properties']['runner_request_timeout']    = 60000
+default['gauge']['properties']['check_updates']             = true
