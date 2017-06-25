@@ -6,7 +6,7 @@ remote_file zipfile do
   not_if { ::File.exist?("/opt/local/gauge/.version-#{node['gauge']['version']}") }
 end
 
-directory '/opt/local/gauge' do
+directory '/opt/local/gauge/share/gauge' do
   owner 'root'
   group 'root'
   mode  '0755'
