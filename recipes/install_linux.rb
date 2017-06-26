@@ -44,6 +44,7 @@ else
 #
 exec /opt/local/gauge/bin/gauge "$@"
 EOF
+  end
 end
 
 
