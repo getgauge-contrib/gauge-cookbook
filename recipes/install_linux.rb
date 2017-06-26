@@ -14,7 +14,7 @@ directory '/opt/local/gauge' do
 end
 
 execute "install gauge v#{node['gauge']['version']}" do
-  command "rm -rf /opt/local/gauge && mkdir -p /opt/local/gauge && unzip #{zipfile} -d /opt/local/gauge && touch /opt/local/gauge/.version-#{node['gauge']['version']}"
+  command "rm -rf /opt/local/gauge && mkdir -p /opt/local/gauge/share/gauge && unzip #{zipfile} -d /opt/local/gauge && touch /opt/local/gauge/.version-#{node['gauge']['version']}"
   creates "/opt/local/gauge/.version-#{node['gauge']['version']}"
 end
 
