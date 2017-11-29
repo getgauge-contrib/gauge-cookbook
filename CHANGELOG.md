@@ -3,6 +3,11 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v1.8.5 (2017-11-28)
+-----------------
+* Upgrade to gauge 0.8.5
+* fix guage path that caused EnclosingDirectoryDoesNotExist Exception
+
 v1.8.0 (2016-12-24)
 -----------------
 * Upgrade to gauge 0.7.0
