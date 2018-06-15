@@ -5,7 +5,7 @@ This file is used to list changes made in each version of the gauge cookbook.
 
 v1.10.0 (2018-06-15)
 -----------------
-* Use yum and chocolatey packages for install
+* Use yum, apt_get and chocolatey packages to install
 * Use latest version always
 
 v1.9.0 (2018-01-03)
