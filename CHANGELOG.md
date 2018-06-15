@@ -3,6 +3,11 @@ Gauge CHANGELOG
 
 This file is used to list changes made in each version of the gauge cookbook.
 
+v1.10.0 (2018-06-15)
+-----------------
+* Use yum and chocolatey packages for install
+* Use latest version always
+
 v1.9.0 (2018-01-03)
 -----------------
 * Upgrade to gauge 0.9.6
