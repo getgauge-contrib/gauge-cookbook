@@ -1,8 +1,24 @@
-yum_repository 'gauge-stable' do
-  description 'Gauge stable repository'
-  baseurl "http://dl.bintray.com/gauge/gauge-rpm/gauge-stable"
-  gpgcheck false
-  action :create
+case node['platform_family']
+when 'rhel', 'centos'
+
+  yum_repository 'gauge-stable' do
+    description 'Gauge stable repository'
+    baseurl     "http://dl.bintray.com/gauge/gauge-rpm/gauge-stable"
+    gpgcheck    false
+    action      :create
+  end
+
+when 'debian'
+
+  apt_repository 'gauge' do
+    uri          'https://dl.bintray.com/gauge/gauge-deb'
+    components   ['main']
+    keyserver    'hkp://pool.sks-keyservers.net'
+    key          '023EDB0B'
+    distribution 'stable'
+    action       :add
+  end
+
 end
 
 package 'gauge' do
