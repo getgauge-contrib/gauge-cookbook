@@ -1,6 +1,5 @@
 case node['platform_family']
-when 'rhel', 'centos'
-
+when 'rhel', 'fedora', 'suse', 'amazon'
   yum_repository 'gauge-stable' do
     description 'Gauge stable repository'
     baseurl     "http://dl.bintray.com/gauge/gauge-rpm/gauge-stable"
